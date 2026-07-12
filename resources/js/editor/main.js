@@ -169,6 +169,7 @@ async function bootEditor(root) {
     renderer.setNavigateMode(false);
 
     let scene = VoxelScene.createEmpty('Untitled');
+    scene.setVoxel(0, 0, 0, { c: 0, m: DEFAULT_MATERIAL_INDEX });
     const history = new HistoryStack();
     const tools = new ToolController(scene, history, state);
 
@@ -505,6 +506,11 @@ async function bootEditor(root) {
 
     function isNavigateMode() {
         return state.tool === 'navigate' || state.spaceNavigate;
+    }
+
+    function keyboardTool(id) {
+        setTool(id);
+        document.activeElement?.blur();
     }
 
     function setTool(id) {
@@ -1037,14 +1043,14 @@ async function bootEditor(root) {
             setExportMenuOpen?.(false);
             return;
         }
-        if (e.key.toLowerCase() === 'h' && !mod) setTool('navigate');
-        if (e.key === '1') setTool('add');
-        if (e.key === '2') setTool('erase');
-        if (e.key === '3') setTool('paint');
-        if (e.key === '4') setTool('eyedropper');
-        if (e.key.toLowerCase() === 'l' && !mod) setTool('line');
-        if (e.key.toLowerCase() === 'b' && !mod) setTool(e.shiftKey ? 'boxErase' : 'box');
-        if (e.key.toLowerCase() === 'f' && !mod) setTool('flood');
+        if (e.key.toLowerCase() === 'h' && !mod) keyboardTool('navigate');
+        if (e.key === '1') keyboardTool('add');
+        if (e.key === '2') keyboardTool('erase');
+        if (e.key === '3') keyboardTool('paint');
+        if (e.key === '4') keyboardTool('eyedropper');
+        if (e.key.toLowerCase() === 'l' && !mod) keyboardTool('line');
+        if (e.key.toLowerCase() === 'b' && !mod) keyboardTool(e.shiftKey ? 'boxErase' : 'box');
+        if (e.key.toLowerCase() === 'f' && !mod) keyboardTool('flood');
         if (e.key === '[') {
             state.brushSize = Math.max(1, state.brushSize - 1);
             document.getElementById('vv-brush-size').value = state.brushSize;
