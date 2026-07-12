@@ -3,7 +3,7 @@ import { VoxelScene } from '../voxel/scene.js';
 import { HistoryStack } from '../voxel/history.js';
 import { ToolController, TOOLS } from '../voxel/tools.js';
 import { raycastVoxels } from '../voxel/raycast.js';
-import { sceneStats } from '../voxel/serialize.js';
+import { deserializeScene, sceneStats } from '../voxel/serialize.js';
 import { StudioRenderer } from '../render/studio.js';
 import {
     createDraftAutosave,
@@ -309,12 +309,18 @@ async function bootEditor(root) {
     window.addEventListener('pagehide', flushAutosaveOnExit);
     document.addEventListener('visibilitychange', flushAutosaveWhenHidden);
 
-    scene.onChange(() => {
-        renderer.rebuild(scene);
-        updateStatus();
-        autosave.touch();
-        renderLayers();
-    });
+    function bindScene(nextScene) {
+        scene = nextScene;
+        tools.scene = scene;
+        scene.onChange(() => {
+            renderer.rebuild(scene);
+            updateStatus();
+            autosave.touch();
+            renderLayers();
+        });
+    }
+
+    bindScene(scene);
 
     function updateStatus() {
         const stats = sceneStats(scene);
@@ -1108,6 +1114,41 @@ async function bootEditor(root) {
         setExportMenuOpen(false);
     });
 
+    const importJsonInput = document.getElementById('vv-import-json');
+
+    importJsonInput?.addEventListener('change', async (event) => {
+        const file = event.target.files?.[0];
+        event.target.value = '';
+        if (!file) return;
+
+        try {
+            const data = JSON.parse(await file.text());
+            const imported = deserializeScene(data);
+            bindScene(imported);
+            state.publishedId = null;
+            state.editKey = null;
+            state.sourcePublicId = null;
+
+            const title = imported.meta?.title || file.name.replace(/\.voxel\.json$|\.json$/i, '') || 'Untitled';
+            document.getElementById('vv-title').value = title;
+            imported.meta = { ...(imported.meta || {}), title };
+            renderer.setEnvironment(imported.environment);
+            if (imported.meta?.studio) renderer.applyStudioAppearance(imported.meta.studio);
+            syncStudioControls();
+            syncLightControls();
+            renderer.rebuild(imported);
+            renderer.frameModel(imported);
+            renderPalette();
+            renderLayers();
+            updateStatus();
+            persistStudioMeta();
+            autosave.touch();
+            setToolMessage(`Imported ${file.name}`);
+        } catch (error) {
+            setToolMessage(error.message || 'Could not import JSON');
+        }
+    });
+
     exportMenu?.querySelectorAll('[data-export]').forEach((item) => {
         item.addEventListener('click', async () => {
             const kind = item.dataset.export;
@@ -1133,6 +1174,11 @@ async function bootEditor(root) {
                 alert(err.message || 'Export failed');
             }
         });
+    });
+
+    exportMenu?.querySelector('[data-import="json"]')?.addEventListener('click', () => {
+        setExportMenuOpen(false);
+        importJsonInput?.click();
     });
 
     document.getElementById('vv-publish-form').addEventListener('submit', async (e) => {

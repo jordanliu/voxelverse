@@ -62,11 +62,12 @@ class PublicationController extends Controller
             throw new NotFoundHttpException('Model not found.');
         }
 
-        if (! Storage::disk('local')->exists($publication->scene_path)) {
+        $sceneDisk = Storage::disk(config('filesystems.default'));
+        if (! $sceneDisk->exists($publication->scene_path)) {
             throw new NotFoundHttpException('Scene missing.');
         }
 
-        $raw = Storage::disk('local')->get($publication->scene_path);
+        $raw = $sceneDisk->get($publication->scene_path);
         $scene = json_decode($raw, true);
         if (! is_array($scene)) {
             throw new NotFoundHttpException('Scene corrupt.');
@@ -92,7 +93,7 @@ class PublicationController extends Controller
         }
 
         if ($publication->scene_path) {
-            Storage::disk('local')->delete($publication->scene_path);
+            Storage::disk(config('filesystems.default'))->delete($publication->scene_path);
         }
         if ($publication->thumbnail_path) {
             Storage::disk('public')->delete($publication->thumbnail_path);
@@ -133,7 +134,7 @@ class PublicationController extends Controller
         $editKey = $isNew ? $this->credentials->generate() : $existingEditKey;
 
         $scenePath = "scenes/{$publicId}.json";
-        Storage::disk('local')->put($scenePath, json_encode($data['scene'], JSON_THROW_ON_ERROR));
+        Storage::disk(config('filesystems.default'))->put($scenePath, json_encode($data['scene'], JSON_THROW_ON_ERROR));
 
         $thumbnailPath = $publication?->thumbnail_path;
         if (! empty($data['thumbnail'])) {

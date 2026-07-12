@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Publication extends Model
 {
@@ -75,7 +76,7 @@ class Publication extends Model
             return null;
         }
 
-        return asset('storage/'.$this->thumbnail_path);
+        return Storage::disk('public')->url($this->thumbnail_path);
     }
 
     public function publicUrl(): string

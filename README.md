@@ -8,7 +8,7 @@ Voxelverse is local-first: drafts stay in the browser until you choose to publis
 
 - Laravel 13 + Blade + Vite + Tailwind 4
 - Vanilla ES modules + Three.js (editor / viewer)
-- SQLite by default, local filesystem storage
+- SQLite locally, Laravel Serverless Postgres and Object Storage in production
 - PHPUnit + Vitest
 
 ## Editor features
@@ -51,6 +51,29 @@ Dev:
 composer dev
 # or: php artisan serve + npm run dev
 ```
+
+## Laravel Cloud production
+
+SQLite is suitable for local development but should not be used for production
+on Laravel Cloud because the application filesystem is ephemeral. Use a
+Laravel Serverless Postgres database for the database and Laravel Object
+Storage for thumbnails and scene JSON.
+
+In Laravel Cloud:
+
+1. Open the environment infrastructure canvas and choose **Add database**.
+2. Create or select a **Laravel Serverless Postgres** cluster and database.
+3. Attach it to the production environment. Cloud injects DB_HOST,
+   DB_DATABASE, DB_USERNAME, and DB_PASSWORD.
+4. Set DB_CONNECTION=pgsql and DB_SSLMODE=require in the environment if
+   Cloud has not already supplied them.
+5. Set the deploy command to `php artisan migrate --force`.
+6. Redeploy the environment.
+
+The migrations use Laravel's schema builder and are compatible with PostgreSQL.
+Run the migration on staging first if the production database already contains
+data. Existing SQLite data must be exported and imported separately; migrations
+only create the schema.
 
 ## Scripts
 

@@ -70,9 +70,12 @@
                 </button>
                 <div id="vv-export-menu" class="vv-menu" role="menu" hidden>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="png">Export PNG</button>
+                    <button type="button" class="vv-menu-item" role="menuitem" data-export="json">Export JSON</button>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="obj">Export OBJ</button>
+                    <button type="button" class="vv-menu-item" role="menuitem" data-import="json">Import JSON</button>
                 </div>
             </div>
+            <input id="vv-import-json" type="file" accept="application/json,.json" hidden>
             <button type="button" id="vv-publish" class="vv-btn vv-btn-fill">Publish</button>
         </div>
     </header>
@@ -315,7 +318,7 @@
     </div>
 
     {{-- Controls / shortcuts drawer (Vaul-style) --}}
-    <div id="vv-help-drawer" class="vv-drawer" role="dialog" aria-modal="true" aria-labelledby="vv-help-title" hidden>
+    <div id="vv-help-drawer" class="vv-drawer vv-desktop-dialog" role="dialog" aria-modal="true" aria-labelledby="vv-help-title" hidden>
         <div class="vv-drawer-scrim" data-drawer-scrim></div>
         <div class="vv-drawer-sheet vv-drawer-sheet-help" data-drawer-sheet tabindex="-1">
             <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>
@@ -416,7 +419,7 @@
     </div>
 
     {{-- Recovery drawer --}}
-    <div id="vv-recovery-dialog" class="vv-drawer" role="dialog" aria-modal="true" aria-labelledby="vv-recovery-title" hidden>
+    <div id="vv-recovery-dialog" class="vv-drawer vv-desktop-dialog" role="dialog" aria-modal="true" aria-labelledby="vv-recovery-title" hidden>
         <div class="vv-drawer-scrim" data-drawer-scrim></div>
         <div class="vv-drawer-sheet vv-drawer-sheet-form" data-drawer-sheet tabindex="-1">
             <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>

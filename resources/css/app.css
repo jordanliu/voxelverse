@@ -1550,10 +1550,12 @@ html.vv-drawer-open body {
 }
 
 @media (min-width: 900px) {
+    .vv-desktop-dialog,
     .vv-publish-dialog {
         align-items: center;
     }
 
+    .vv-desktop-dialog .vv-drawer-sheet,
     .vv-publish-dialog .vv-drawer-sheet {
         max-height: min(90dvh, 44rem);
         border-radius: 1.15rem;
@@ -1562,15 +1564,18 @@ html.vv-drawer-open body {
         opacity: 0;
     }
 
+    .vv-desktop-dialog.is-open .vv-drawer-sheet,
     .vv-publish-dialog.is-open .vv-drawer-sheet {
         transform: translateY(0) scale(1);
         opacity: 1;
     }
 
+    .vv-desktop-dialog .vv-drawer-handle,
     .vv-publish-dialog .vv-drawer-handle {
         display: none;
     }
 
+    .vv-desktop-dialog .vv-drawer-body,
     .vv-publish-dialog .vv-drawer-body {
         padding-top: 2rem;
     }
