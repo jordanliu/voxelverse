@@ -87,19 +87,6 @@ Existing SQLite data must be exported and imported separately.
 | `npm run build` | Production assets |
 | `composer dev` | Serve + queue + vite |
 
-## Routes
-
-| Path | Description |
-|------|-------------|
-| `/` | Editor (create) |
-| `/gallery` | Gallery (Trending / Newest / Top rated) |
-| `/editor` | Create / edit draft |
-| `/editor/{publicId}` | Edit published model (needs private key) |
-| `/m/{publicId}` | Public model page |
-| `/privacy` | Privacy notice |
-| `/moderation?token=…` | Internal report queue (`VOXELVERSE_MODERATION_TOKEN`) |
-| `/api/models` | Publish / list / update / rate / report |
-
 ## Docs
 
 - [Scene format](docs/scene-format.md)
