@@ -99,9 +99,9 @@
                     <div class="flex flex-wrap items-center gap-2 sm:justify-end">
                         <button type="button" id="vv-share" class="vv-btn vv-btn-ghost">Copy link</button>
                         @if($model->allow_remix)
-                            <a class="vv-btn vv-btn-ghost" href="{{ url('/editor') }}?remix={{ $model->public_id }}">Remix in editor</a>
+                            <a class="vv-btn vv-btn-ghost" href="{{ url('/editor') }}?remix={{ $model->public_id }}">Remix</a>
                         @endif
-                        <a id="vv-edit-owned" class="vv-btn hidden" href="{{ route('editor', $model->public_id) }}">Edit</a>
+                        <a id="vv-edit-owned" class="vv-btn vv-btn-ghost hidden" href="{{ route('editor', $model->public_id) }}">Edit</a>
                         <button type="button" id="vv-report" class="vv-btn vv-btn-ghost" aria-haspopup="dialog">Report</button>
                     </div>
                     @if($model->tags)
