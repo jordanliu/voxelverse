@@ -61,11 +61,6 @@ composer dev
 | `npm run build` | Production assets |
 | `composer dev` | Serve + queue + vite |
 
-## Docs
-
-- [Scene Format](docs/scene-format.md)
-- [Anonymous Ownership](docs/ownership.md)
-
 ## Deployment
 
 [Laravel Cloud](https://laravel.com/cloud) is the recommended deployment
@@ -87,3 +82,8 @@ Run migrations after the database is configured:
 ```bash
 php artisan migrate --force
 ```
+
+## Docs
+
+- [Scene Format](docs/scene-format.md)
+- [Anonymous Ownership](docs/ownership.md)
