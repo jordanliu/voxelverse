@@ -1834,11 +1834,6 @@ html.vv-drawer-open body {
         font-size: 0.9rem;
     }
 
-    .vv-navbar-settings {
-        display: inline-flex;
-        flex-shrink: 0;
-    }
-
     .vv-btn {
         min-height: 2.5rem;
     }

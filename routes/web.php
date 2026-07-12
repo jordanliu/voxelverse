@@ -6,7 +6,7 @@ use App\Http\Controllers\ModelPageController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PageController::class, 'editor'])->name('home');
+Route::permanentRedirect('/', '/gallery');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/editor/{publicId?}', [PageController::class, 'editor'])->name('editor');
 Route::get('/m/{publicId}', [ModelPageController::class, 'show'])->name('models.show');

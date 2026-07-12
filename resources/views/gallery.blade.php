@@ -126,9 +126,11 @@
 
     <footer class="mx-auto max-w-6xl px-4 pb-10 text-right text-sm text-[var(--color-studio-muted)] md:px-6">
         <p class="inline-flex items-center gap-4">
-            <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.39v-1.52c-2.23.48-2.7-1.08-2.7-1.08-.36-.92-.88-1.17-.88-1.17-.72-.49.05-.48.05-.48.8.06 1.22.82 1.22.82.71 1.22 1.86.87 2.31.67.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.6.82-2.17-.08-.2-.36-1.03.08-2.15 0 0 .67-.22 2.2.83A7.65 7.65 0 0 1 8 3.64c.68 0 1.36.09 2 .27 1.53-1.05 2.2-.83 2.2-.83.44 1.12.16 1.95.08 2.15.51.57.82 1.29.82 2.17 0 3.08-1.87 3.76-3.66 3.96.29.25.54.74.54 1.49v2.21c0 .22.14.47.55.39A8 8 0 0 0 8 0Z" />
-            </svg>
+            <a href="https://github.com/jordanliu/voxelverse" target="_blank" rel="noopener noreferrer" aria-label="Voxelverse on GitHub">
+                <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.39v-1.52c-2.23.48-2.7-1.08-2.7-1.08-.36-.92-.88-1.17-.88-1.17-.72-.49.05-.48.05-.48.8.06 1.22.82 1.22.82.71 1.22 1.86.87 2.31.67.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.6.82-2.17-.08-.2-.36-1.03.08-2.15 0 0 .67-.22 2.2.83A7.65 7.65 0 0 1 8 3.64c.68 0 1.36.09 2 .27 1.53-1.05 2.2-.83 2.2-.83.44 1.12.16 1.95.08 2.15.51.57.82 1.29.82 2.17 0 3.08-1.87 3.76-3.66 3.96.29.25.54.74.54 1.49v2.21c0 .22.14.47.55.39A8 8 0 0 0 8 0Z" />
+                </svg>
+            </a>
             <span aria-hidden="true" class="h-4 border-l border-[var(--color-studio-muted)]"></span>
             <a href="https://x.com/jordanxliu" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-[var(--color-studio-ink)]">
                 created by @jordanxliu

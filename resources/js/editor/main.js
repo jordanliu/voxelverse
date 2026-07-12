@@ -134,6 +134,12 @@ async function bootEditor(root) {
         if (!mqDesktop.matches) inspectorDrawer.close();
     });
 
+    const helpDrawer = createDrawer(document.getElementById('vv-help-drawer'), {
+        modal: true,
+        dismissible: true,
+    });
+    document.getElementById('vv-open-help-mobile')?.addEventListener('click', () => helpDrawer.toggle());
+
     let renderer;
     try {
         renderer = new StudioRenderer(canvas);

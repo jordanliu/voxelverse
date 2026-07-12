@@ -46,12 +46,6 @@
                 spellcheck="false"
             >
             <div class="vv-bar-spacer"></div>
-            <button type="button" id="vv-open-inspector-top" class="vv-btn vv-btn-ghost vv-btn-icon vv-mobile-only vv-navbar-settings" aria-label="Open settings" aria-controls="vv-inspector-drawer" aria-expanded="false" title="Settings">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/>
-                    <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2.05-1.6-2-3.45-2.45 1a7.6 7.6 0 0 0-1.75-1L15 3.5h-6l-.3 2.45a7.6 7.6 0 0 0-1.75 1l-2.45-1-2 3.45L4.55 11a7.8 7.8 0 0 0 0 2l-2.05 1.6 2 3.45 2.45-1a7.6 7.6 0 0 0 1.75 1L9 20.5h6l.3-2.45a7.6 7.6 0 0 0 1.75-1l2.45 1 2-3.45L19.4 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-            </button>
             <button type="button" id="vv-undo" class="vv-btn vv-btn-ghost vv-btn-icon" aria-label="Undo" title="Undo (⌘Z)">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M9 14L4 9l5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -145,6 +139,11 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/>
                 <path d="M12 10.5v5.5M12 8.25v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button type="button" id="vv-open-inspector-mobile" class="vv-mobile-fab" aria-label="Settings" aria-controls="vv-inspector-drawer" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
             </svg>
         </button>
     </div>
