@@ -10,7 +10,7 @@ Voxelverse is local-first: drafts stay in the browser until you choose to publis
 
 - Laravel 13 + Blade + Vite + Tailwind 4
 - Vanilla ES modules + Three.js (editor / viewer)
-- SQLite locally, Postgres and S3-compatible Object Storage in production
+- Postgres and S3-compatible Object Storage 
 - PHPUnit + Vitest
 
 ## Editor features
@@ -75,8 +75,6 @@ Run migrations after the database is configured:
 php artisan migrate --force
 ```
 
-Existing SQLite data must be exported and imported separately.
-
 ## Scripts
 
 | Command | Purpose |
@@ -89,7 +87,7 @@ Existing SQLite data must be exported and imported separately.
 
 ## Docs
 
-- [Scene format](docs/scene-format.md)
-- [Anonymous ownership](docs/ownership.md)
+- [Scene Format](docs/scene-format.md)
+- [Anonymous Ownership](docs/ownership.md)
 
 
