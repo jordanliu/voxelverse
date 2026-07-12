@@ -282,7 +282,7 @@ body {
 .vv-loading {
     position: absolute;
     inset: 0;
-    z-index: 4;
+    z-index: 15;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -320,7 +320,7 @@ body {
 .vv-fallback {
     position: absolute;
     inset: 0;
-    z-index: 5;
+    z-index: 16;
     align-items: center;
     justify-content: center;
     padding: 1.25rem;
