@@ -1,7 +1,5 @@
 # Voxelverse
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
 Online voxel editor and public gallery. Make something blocky, make it yours, and share original voxel creations without an account.
 
 Voxelverse is local-first: drafts stay in the browser until you choose to publish. Published models get a public URL and a private edit link.
