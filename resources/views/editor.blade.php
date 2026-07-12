@@ -17,6 +17,10 @@
     {{-- Full-bleed stage --}}
     <div class="vv-stage" id="vv-viewport">
         <canvas id="vv-canvas" tabindex="0" aria-label="Voxel editor viewport"></canvas>
+        <div id="vv-loading" class="vv-loading" role="status" aria-live="polite">
+            <span class="vv-spinner" aria-hidden="true"></span>
+            <span>Preparing your studio</span>
+        </div>
         <div id="vv-webgl-fallback" class="vv-fallback" hidden role="alert">
             <div class="vv-sheet vv-sheet-sm">
                 <h2 class="vv-display">Can’t start the editor</h2>
@@ -87,6 +91,18 @@
             <button type="button" id="vv-publish" class="vv-btn vv-btn-fill">Publish</button>
         </div>
     </header>
+
+    <aside id="vv-mobile-desktop-banner" class="vv-mobile-desktop-banner" role="status" aria-label="Desktop experience notice" hidden>
+        <div>
+            <p class="vv-eyebrow">Desktop works best</p>
+            <p class="vv-mobile-desktop-banner-copy">For a better experience, open the editor on desktop.</p>
+        </div>
+        <button type="button" id="vv-dismiss-desktop-banner" class="vv-btn vv-btn-ghost vv-btn-icon" aria-label="Dismiss desktop experience notice" title="Dismiss">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </aside>
 
     {{-- Floating tool rail --}}
     <aside class="vv-float vv-float-left" aria-label="Tools">

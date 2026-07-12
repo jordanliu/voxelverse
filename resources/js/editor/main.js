@@ -31,11 +31,19 @@ function showFallback(el, message) {
     if (detail && message) detail.textContent = message;
 }
 
+function hideLoading() {
+    const loading = document.getElementById('vv-loading');
+    if (!loading) return;
+    loading.classList.add('is-hidden');
+    loading.addEventListener('transitionend', () => loading.setAttribute('hidden', ''), { once: true });
+}
+
 const root = document.getElementById('vv-editor');
 if (root) {
     document.getElementById('vv-webgl-fallback')?.setAttribute('hidden', '');
     bootEditor(root).catch((err) => {
         console.error(err);
+        hideLoading();
         showFallback(document.getElementById('vv-webgl-fallback'), err?.message || String(err));
     });
 }
@@ -45,6 +53,28 @@ async function bootEditor(root) {
     if (!canvas) {
         throw new Error('Editor canvas missing from page');
     }
+
+    const desktopBanner = document.getElementById('vv-mobile-desktop-banner');
+    const dismissDesktopBanner = document.getElementById('vv-dismiss-desktop-banner');
+    const desktopBannerKey = 'vv:mobile-desktop-banner-dismissed';
+    let bannerDismissed = false;
+    try {
+        bannerDismissed = localStorage.getItem(desktopBannerKey) === '1';
+    } catch (_) {
+        // A privacy-restricted browser can still use the editor without this preference.
+    }
+    if (desktopBanner && !bannerDismissed) {
+        desktopBanner.hidden = false;
+        dismissDesktopBanner?.addEventListener('click', () => {
+            desktopBanner.hidden = true;
+            try {
+                localStorage.setItem(desktopBannerKey, '1');
+            } catch (_) {
+                // Keep the dismissal in memory if storage is unavailable.
+            }
+        });
+    }
+
     const publicId = root.dataset.publicId || '';
     const apiBase = root.dataset.apiBase || '/api';
 
@@ -107,6 +137,7 @@ async function bootEditor(root) {
     let renderer;
     try {
         renderer = new StudioRenderer(canvas);
+        hideLoading();
     } catch (e) {
         console.error(e);
         showFallback(document.getElementById('vv-webgl-fallback'), e?.message || String(e));

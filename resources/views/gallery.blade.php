@@ -75,9 +75,16 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach($models as $model)
                     <a href="{{ route('models.show', $model->public_id) }}" class="vv-card block">
-                        <div class="aspect-square bg-[#efe6da]">
+                        <div class="vv-gallery-media aspect-square bg-[#efe6da]">
                             @if($model->thumbnailUrl())
-                                <img src="{{ $model->thumbnailUrl() }}" alt="" loading="lazy" class="h-full w-full object-cover">
+                                <img
+                                    src="{{ $model->thumbnailUrl() }}"
+                                    alt=""
+                                    loading="{{ $loop->index < 3 ? 'eager' : 'lazy' }}"
+                                    decoding="async"
+                                    @if($loop->index < 3) fetchpriority="high" @endif
+                                    class="vv-gallery-image h-full w-full object-cover"
+                                >
                             @else
                                 <div class="flex h-full items-center justify-center text-sm text-[var(--color-studio-muted)]">No preview</div>
                             @endif
