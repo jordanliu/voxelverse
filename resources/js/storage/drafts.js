@@ -245,6 +245,23 @@ export async function setActiveDraftId(id) {
     }
 }
 
+export async function clearActiveDraftId() {
+    memory.meta.delete('activeDraftId');
+    try {
+        localStorage.removeItem(LS_PREFIX + 'activeDraftId');
+    } catch {
+        // ignore storage access errors
+    }
+    try {
+        await withStore(META_STORE, 'readwrite', (store, tx) => {
+            store.delete('activeDraftId');
+            return txDone(tx);
+        });
+    } catch {
+        // The synchronous localStorage pointer was already removed above.
+    }
+}
+
 export async function saveOwnership(entry) {
     const record = {
         publicId: entry.publicId,

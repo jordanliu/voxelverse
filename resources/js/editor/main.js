@@ -8,6 +8,7 @@ import { StudioRenderer } from '../render/studio.js';
 import {
     createDraftAutosave,
     createLocalId,
+    clearActiveDraftId,
     getActiveDraftId,
     getDraft,
     getDeviceId,
@@ -138,6 +139,7 @@ async function bootEditor(root) {
     const editKeyFromHash = hashParams.get('key');
     const remixId = params.get('remix');
     const draftParam = params.get('draft');
+    const newParam = ['1', 'true'].includes(params.get('new'));
 
     if (editKeyFromHash) {
         state.editKey = editKeyFromHash;
@@ -194,7 +196,7 @@ async function bootEditor(root) {
         } catch (e) {
             console.warn('Draft load failed', e);
         }
-    } else {
+    } else if (!newParam) {
         try {
             const activeId = await getActiveDraftId();
             if (activeId) {
@@ -211,6 +213,10 @@ async function bootEditor(root) {
         } catch (e) {
             console.warn('Active draft restore failed', e);
         }
+    }
+
+    if (newParam) {
+        await clearActiveDraftId();
     }
 
     if (!state.draftId) {
@@ -247,25 +253,13 @@ async function bootEditor(root) {
         toggle.setAttribute('aria-checked', on ? 'true' : 'false');
     }
 
-    function setLinkColorsSwitch(on) {
-        const toggle = document.getElementById('vv-link-bg-ground');
-        if (!toggle) return;
-        toggle.classList.toggle('is-on', on);
-        toggle.setAttribute('aria-checked', on ? 'true' : 'false');
-        const ground = document.getElementById('vv-ground-color');
-        if (ground) ground.disabled = !!on;
-    }
-
     function syncStudioControls() {
         const app = renderer.getStudioAppearance();
-        const bg = document.getElementById('vv-bg-color');
         const ground = document.getElementById('vv-ground-color');
         const grid = document.getElementById('vv-grid-color');
-        if (bg) bg.value = app.background;
-        if (ground) ground.value = app.ground;
+        if (ground) ground.value = app.background || app.ground;
         if (grid) grid.value = app.gridLine;
         setGridSwitch(app.gridVisible);
-        setLinkColorsSwitch(!!app.linkGroundToBackground);
     }
 
     const autosave = createDraftAutosave({
@@ -628,34 +622,13 @@ async function bootEditor(root) {
 
     syncLightControls();
 
-    document.getElementById('vv-bg-color')?.addEventListener('input', (e) => {
-        renderer.setBackgroundColor(e.target.value);
-        if (renderer.linkGroundToBackground) {
-            const ground = document.getElementById('vv-ground-color');
-            if (ground) ground.value = e.target.value;
-        }
-        persistStudioMeta();
-        autosave.touch();
-    });
     document.getElementById('vv-ground-color')?.addEventListener('input', (e) => {
         renderer.setGroundColor(e.target.value);
-        if (renderer.linkGroundToBackground) {
-            const bg = document.getElementById('vv-bg-color');
-            if (bg) bg.value = e.target.value;
-        }
         persistStudioMeta();
         autosave.touch();
     });
     document.getElementById('vv-grid-color')?.addEventListener('input', (e) => {
         renderer.setGridLineColor(e.target.value);
-        persistStudioMeta();
-        autosave.touch();
-    });
-    document.getElementById('vv-link-bg-ground')?.addEventListener('click', () => {
-        const next = !renderer.linkGroundToBackground;
-        renderer.setLinkGroundToBackground(next);
-        setLinkColorsSwitch(next);
-        syncStudioControls();
         persistStudioMeta();
         autosave.touch();
     });
@@ -1273,6 +1246,7 @@ async function bootEditor(root) {
                 publishedId: data.public_id,
                 sourcePublicId: state.sourcePublicId,
             });
+            await clearActiveDraftId();
 
             const publicUrl = data.public_url || `${window.location.origin}/m/${data.public_id}`;
             const editUrl = `${window.location.origin}/editor/${data.public_id}#key=${state.editKey}`;

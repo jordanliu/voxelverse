@@ -65,10 +65,12 @@
                     title="Export"
                 >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M12 4v10m0 0l-3.5-3.5M12 14l3.5-3.5M5 18h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2.05-1.6-2-3.45-2.45 1a7.6 7.6 0 0 0-1.75-1L15 3.5h-6l-.3 2.45a7.6 7.6 0 0 0-1.75 1l-2.45-1-2 3.45L4.55 11a7.8 7.8 0 0 0 0 2l-2.05 1.6 2 3.45 2.45-1a7.6 7.6 0 0 0 1.75 1L9 20.5h6l.3-2.45a7.6 7.6 0 0 0 1.75-1l2.45 1 2-3.45L19.4 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
                     </svg>
                 </button>
                 <div id="vv-export-menu" class="vv-menu" role="menu" hidden>
+                    <a class="vv-menu-item" role="menuitem" href="{{ route('editor') }}?new=1">Start new</a>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="png">Export PNG</button>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="json">Export JSON</button>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="obj">Export OBJ</button>
@@ -220,25 +222,8 @@
             <section class="vv-block">
                 <h2 class="vv-eyebrow" title="Controls the background, ground, and editing grid around your model.">Scene</h2>
                 <div class="vv-color-row vv-scene-row">
-                    <label class="vv-body" for="vv-bg-color" title="The color behind your model. Click the swatch to choose a new background color.">Background</label>
-                    <input id="vv-bg-color" type="color" value="#F5EFE6" aria-label="Background color" class="vv-color-native">
-                </div>
-                <div class="vv-color-row vv-scene-row">
-                    <label class="vv-body" for="vv-ground-color" title="The color of the floor beneath your model. It helps define the model's depth and shadows.">Ground</label>
+                    <label class="vv-body" for="vv-ground-color" title="The color of the whole scene. The editable grid uses this color as its surface.">Scene color</label>
                     <input id="vv-ground-color" type="color" value="#E9E2D8" aria-label="Ground color" class="vv-color-native">
-                </div>
-                <div class="vv-toggle-row">
-                    <span class="vv-body" id="vv-link-colors-label" title="When on, the ground automatically uses the background color, so both surfaces stay in sync.">Match ground color</span>
-                    <button
-                        type="button"
-                        class="vv-switch"
-                        id="vv-link-bg-ground"
-                        role="switch"
-                        aria-checked="false"
-                        aria-labelledby="vv-link-colors-label"
-                    >
-                        <span class="vv-switch-knob" aria-hidden="true"></span>
-                    </button>
                 </div>
                 <div class="vv-color-row vv-scene-row">
                     <label class="vv-body" for="vv-grid-color" title="The color of the lines on the editing grid. This only changes the grid's appearance.">Grid color</label>
@@ -446,6 +431,7 @@
                 </div>
                 <div class="vv-sheet-actions">
                     <button type="button" id="vv-download-recovery" class="vv-btn vv-btn-ghost">Download recovery</button>
+                    <a id="vv-recovery-new" class="vv-btn vv-btn-ghost" href="{{ route('editor') }}?new=1">Start new</a>
                     <a id="vv-open-public" class="vv-btn vv-btn-fill" href="#" target="_blank" rel="noopener">Open</a>
                     <button type="button" id="vv-recovery-close" class="vv-btn vv-btn-ghost">Done</button>
                 </div>

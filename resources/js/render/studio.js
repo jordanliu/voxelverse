@@ -376,15 +376,11 @@ export class StudioRenderer {
             this.gridLineColor,
         );
 
-        this.groundMatWithGrid = new THREE.MeshStandardMaterial({
+        this.groundMatWithGrid = new THREE.MeshBasicMaterial({
             map: this._gridTexture,
-            roughness: 0.95,
-            metalness: 0,
         });
-        this.groundMatPlain = new THREE.MeshStandardMaterial({
+        this.groundMatPlain = new THREE.MeshBasicMaterial({
             color: new THREE.Color(this.groundColor),
-            roughness: 0.95,
-            metalness: 0,
         });
 
         this.ground = new THREE.Mesh(groundGeo, this.groundMatWithGrid);
@@ -502,20 +498,16 @@ export class StudioRenderer {
     setBackgroundColor(hex) {
         this._bgCustom = true;
         this.bgColor = normalizeHex(hex);
+        this.groundColor = this.bgColor;
         this.scene.background = new THREE.Color(this.bgColor);
-        if (this.linkGroundToBackground) {
-            this.groundColor = this.bgColor;
-            this._rebuildGridTexture();
-        }
+        this._rebuildGridTexture();
     }
 
     setGroundColor(hex) {
         this.groundColor = normalizeHex(hex);
-        if (this.linkGroundToBackground) {
-            this._bgCustom = true;
-            this.bgColor = this.groundColor;
-            this.scene.background = new THREE.Color(this.bgColor);
-        }
+        this._bgCustom = true;
+        this.bgColor = this.groundColor;
+        this.scene.background = new THREE.Color(this.bgColor);
         this._rebuildGridTexture();
     }
 
@@ -554,28 +546,17 @@ export class StudioRenderer {
             ground: this.groundColor,
             gridLine: this.gridLineColor,
             gridVisible: this.showGrid,
-            linkGroundToBackground: this.linkGroundToBackground,
+            linkGroundToBackground: true,
             lighting: this.getLightSettings(),
         };
     }
 
     applyStudioAppearance(opts = {}) {
-        if (typeof opts.linkGroundToBackground === 'boolean') {
-            this.linkGroundToBackground = opts.linkGroundToBackground;
-        }
-        if (opts.background) {
+        const sceneColor = opts.background || opts.ground;
+        if (sceneColor) {
             this._bgCustom = true;
-            this.bgColor = normalizeHex(opts.background);
-            this.scene.background = new THREE.Color(this.bgColor);
-        }
-        if (opts.ground) {
-            this.groundColor = normalizeHex(opts.ground);
-        }
-        if (this.linkGroundToBackground && opts.background) {
+            this.bgColor = normalizeHex(sceneColor);
             this.groundColor = this.bgColor;
-        } else if (this.linkGroundToBackground && opts.ground && !opts.background) {
-            this.bgColor = this.groundColor;
-            this._bgCustom = true;
             this.scene.background = new THREE.Color(this.bgColor);
         }
         if (opts.gridLine) this.gridLineColor = normalizeHex(opts.gridLine);
