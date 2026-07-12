@@ -29,8 +29,6 @@ composer setup
 php artisan storage:link
 ```
 
-`composer setup` installs PHP and frontend dependencies, creates the environment file, generates the application key, runs migrations, and builds production assets.
-
 For a manual setup:
 
 ```bash
