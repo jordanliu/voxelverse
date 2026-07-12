@@ -426,28 +426,39 @@
             <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>
             <div class="vv-drawer-body">
                 <h2 id="vv-recovery-title" class="vv-display">Published</h2>
-                <p class="vv-body mt-1">
-                    Ownership lives in this browser or the private edit link. Clearing site data removes local access. Anyone with the private link can edit.
+                <p id="vv-recovery-msg" class="vv-body mt-1">
+                    Ownership lives in this browser or the private edit link. Clearing site data removes local access.
                 </p>
                 <div class="vv-form">
                     <div class="vv-field-group">
                         <label class="vv-eyebrow" for="vv-public-link">Public link</label>
-                        <div class="vv-inline">
-                            <input id="vv-public-link" class="vv-field" readonly>
-                            <button type="button" class="vv-btn vv-btn-ghost" data-copy="vv-public-link">Copy</button>
+                        <div class="vv-input-icon-wrap">
+                            <input id="vv-public-link" class="vv-field" readonly style="padding-right:2.5rem">
+                            <button type="button" class="vv-btn vv-btn-ghost vv-btn-icon vv-copy-btn" data-copy="vv-public-link" aria-label="Copy public link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="vv-copy-icon"><rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke="currentColor" stroke-width="1.6"/></svg>
+                            </button>
                         </div>
                     </div>
                     <div class="vv-field-group">
                         <label class="vv-eyebrow" for="vv-edit-link">Private edit link</label>
-                        <div class="vv-inline">
-                            <input id="vv-edit-link" class="vv-field" readonly>
-                            <button type="button" class="vv-btn vv-btn-ghost" data-copy="vv-edit-link">Copy</button>
+                        <div class="vv-input-icon-wrap">
+                            <input id="vv-edit-link" class="vv-field" readonly style="padding-right:2.5rem">
+                            <button type="button" class="vv-btn vv-btn-ghost vv-btn-icon vv-copy-btn" data-copy="vv-edit-link" aria-label="Copy private edit link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="vv-copy-icon"><rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke="currentColor" stroke-width="1.6"/></svg>
+                            </button>
                         </div>
+                        <p id="vv-private-warning" class="vv-private-warning">Anyone with the private link can edit.</p>
                     </div>
                 </div>
                 <div class="vv-sheet-actions">
-                    <a id="vv-open-public" class="vv-btn vv-btn-fill" href="#" target="_blank" rel="noopener">Open</a>
-                    <button type="button" id="vv-recovery-close" class="vv-btn vv-btn-ghost">Done</button>
+                    <div class="vv-secondary-actions">
+                        <button type="button" id="vv-download-recovery" class="vv-text-link">Download recovery</button>
+                        <a href="{{ route('editor') }}?new=1" class="vv-text-link">Start new</a>
+                    </div>
+                    <div class="vv-primary-actions">
+                        <button type="button" id="vv-recovery-close" class="vv-btn vv-btn-ghost">Done</button>
+                        <a id="vv-open-public" class="vv-btn vv-btn-fill" href="#" target="_blank" rel="noopener">View</a>
+                    </div>
                 </div>
             </div>
         </div>

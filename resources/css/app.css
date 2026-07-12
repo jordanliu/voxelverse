@@ -1344,6 +1344,100 @@ body.vv-modal-open {
     color: var(--vv-good);
 }
 
+.vv-input-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.vv-input-icon-wrap .vv-field {
+    width: 100%;
+}
+
+.vv-copy-btn {
+    position: absolute;
+    right: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    min-height: 2rem;
+    color: var(--color-studio-muted);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.vv-copy-btn:hover {
+    color: var(--vv-ink);
+}
+
+.vv-copy-btn.vv-copied {
+    color: var(--vv-good);
+}
+
+.vv-copy-icon {
+    display: block;
+}
+
+.vv-private-warning {
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+    color: var(--vv-bad);
+    line-height: 1.3;
+}
+
+.vv-secondary-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-right: auto;
+}
+
+.vv-primary-actions {
+    display: flex;
+    gap: 0.45rem;
+    align-items: center;
+}
+
+.vv-text-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 0.8rem;
+    color: var(--color-studio-muted);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.vv-text-link:hover {
+    color: var(--vv-ink);
+}
+
+@media (max-width: 640px) {
+    .vv-sheet-actions {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .vv-secondary-actions {
+        margin-right: 0;
+        justify-content: center;
+    }
+    .vv-primary-actions {
+        justify-content: stretch;
+    }
+    .vv-primary-actions .vv-btn {
+        flex: 1;
+    }
+}
+
 /* Utility: never fight component display rules with bare .hidden on scrims */
 .hidden,
 [hidden] {

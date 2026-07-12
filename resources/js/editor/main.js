@@ -1337,10 +1337,10 @@ async function bootEditor(root) {
             publishDrawer.close();
             const recoveryTitle = document.getElementById('vv-recovery-title');
             if (recoveryTitle) recoveryTitle.textContent = updating ? 'Saved' : 'Published';
-            const recoveryMsg = recoveryTitle?.nextElementSibling;
+            const recoveryMsg = document.getElementById('vv-recovery-msg');
             if (recoveryMsg) recoveryMsg.textContent = updating
                 ? 'Your changes are now live.'
-                : 'Ownership lives in this browser or the private edit link. Clearing site data removes local access. Anyone with the private link can edit.';
+                : 'Ownership lives in this browser or the private edit link. Clearing site data removes local access.';
             recoveryDrawer.open();
 
             // Update URL without reload when first publish
@@ -1356,12 +1356,20 @@ async function bootEditor(root) {
         }
     });
 
+    const copyIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="vv-copy-icon"><rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke="currentColor" stroke-width="1.6"/></svg>';
+    const checkIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="vv-copy-icon"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
     document.querySelectorAll('[data-copy]').forEach((btn) => {
         btn.addEventListener('click', async () => {
             const input = document.getElementById(btn.dataset.copy);
             await navigator.clipboard.writeText(input.value);
-            btn.textContent = 'Copied';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+            const orig = btn.innerHTML;
+            btn.innerHTML = checkIcon;
+            btn.classList.add('vv-copied');
+            setTimeout(() => {
+                btn.innerHTML = orig;
+                btn.classList.remove('vv-copied');
+            }, 1200);
         });
     });
 
