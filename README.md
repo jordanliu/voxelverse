@@ -4,7 +4,7 @@ Online voxel editor and public gallery. Make something blocky, make it yours, an
 
 Voxelverse is local-first: drafts stay in the browser until you choose to publish. Published models get a public URL and a private edit link.
 
-<video src="https://github.com/user-attachments/assets/cdf08914-6163-47a8-9e57-a7eea2711bad" controls width="100%" style="max-width:720px;border-radius:12px;margin-top:1rem"></video>
+<video src="https://github.com/user-attachments/assets/cdf08914-6163-47a8-9e57-a7eea2711bad" controls width="100%" style="max-width:720px;border-radius:12px;margin-top:1rem" title="Voxelverse demo"></video>
 
 ## Stack
 
