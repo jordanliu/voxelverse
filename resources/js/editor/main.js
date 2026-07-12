@@ -298,6 +298,17 @@ async function bootEditor(root) {
         },
     });
 
+    const flushAutosaveOnExit = () => {
+        void autosave.flush();
+    };
+    const flushAutosaveWhenHidden = () => {
+        if (document.visibilityState === 'hidden') {
+            flushAutosaveOnExit();
+        }
+    };
+    window.addEventListener('pagehide', flushAutosaveOnExit);
+    document.addEventListener('visibilitychange', flushAutosaveWhenHidden);
+
     scene.onChange(() => {
         renderer.rebuild(scene);
         updateStatus();

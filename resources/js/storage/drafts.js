@@ -141,11 +141,17 @@ export async function listDrafts() {
 
 export async function getDraft(id) {
     try {
-        return await withStore(DRAFTS_STORE, 'readonly', (store) => new Promise((resolve, reject) => {
+        const indexedDraft = await withStore(DRAFTS_STORE, 'readonly', (store) => new Promise((resolve, reject) => {
             const req = store.get(id);
             req.onsuccess = () => resolve(req.result || null);
             req.onerror = () => reject(req.error);
         }));
+        const localDraft = lsGet('drafts', {})[id] || null;
+        if (!indexedDraft) return localDraft;
+        if (localDraft && (localDraft.updatedAt || 0) > (indexedDraft.updatedAt || 0)) {
+            return localDraft;
+        }
+        return indexedDraft;
     } catch {
         if (memory.drafts.has(id)) {
             return memory.drafts.get(id);
@@ -162,6 +168,13 @@ export async function saveDraft(draft) {
         createdAt: draft.createdAt || Date.now(),
     };
     memory.drafts.set(record.id, record);
+
+    // Keep a synchronous backup so a refresh during an IndexedDB write does
+    // not lose the latest draft. IndexedDB remains the primary store.
+    const localDrafts = lsGet('drafts', {});
+    localDrafts[record.id] = record;
+    lsSet('drafts', localDrafts);
+
     try {
         await withStore(DRAFTS_STORE, 'readwrite', (store, tx) => {
             store.put(record);
@@ -206,11 +219,14 @@ export async function duplicateDraft(id) {
 
 export async function getActiveDraftId() {
     try {
-        return await withStore(META_STORE, 'readonly', (store) => new Promise((resolve, reject) => {
+        const indexedId = await withStore(META_STORE, 'readonly', (store) => new Promise((resolve, reject) => {
             const req = store.get('activeDraftId');
             req.onsuccess = () => resolve(req.result?.value || null);
             req.onerror = () => reject(req.error);
         }));
+        // setActiveDraftId writes localStorage first, so prefer it when both
+        // stores are available and the browser is restoring immediately.
+        return lsGet('activeDraftId', null) || indexedId || null;
     } catch {
         return memory.meta.get('activeDraftId') || lsGet('activeDraftId', null);
     }
@@ -218,13 +234,14 @@ export async function getActiveDraftId() {
 
 export async function setActiveDraftId(id) {
     memory.meta.set('activeDraftId', id);
+    lsSet('activeDraftId', id);
     try {
         await withStore(META_STORE, 'readwrite', (store, tx) => {
             store.put({ key: 'activeDraftId', value: id });
             return txDone(tx);
         });
     } catch {
-        lsSet('activeDraftId', id);
+        // The synchronous localStorage backup was already written above.
     }
 }
 
