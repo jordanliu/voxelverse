@@ -1781,7 +1781,7 @@ html.vv-drawer-open body {
         flex-shrink: 0;
     }
 
-    /* Settings FAB */
+    /* Mobile action FAB */
     .vv-mobile-fab {
         display: inline-flex;
         align-items: center;
@@ -1804,6 +1804,11 @@ html.vv-drawer-open body {
         cursor: pointer;
         touch-action: manipulation;
         transition: transform var(--vv-press), background 160ms var(--vv-spring);
+    }
+
+    .vv-mobile-fab-help {
+        left: max(0.75rem, env(safe-area-inset-left));
+        right: auto;
     }
 
     .vv-mobile-fab:active {

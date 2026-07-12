@@ -235,6 +235,7 @@ async function bootEditor(root) {
     if (scene.meta?.studio) {
         renderer.applyStudioAppearance(scene.meta.studio);
     }
+    renderer.setGroundColor(renderer.bgColor);
     syncStudioControls();
     renderer.rebuild(scene);
     renderer.frameModel(scene);
@@ -766,6 +767,9 @@ async function bootEditor(root) {
         canvas.style.cursor = isNavigateMode() ? 'grab' : 'crosshair';
     }
 
+    // Capture first so Alt+drag can switch OrbitControls to rotate before its
+    // own pointer handler sees the event. Normal left-drag editing remains
+    // protected because editor mode maps the left mouse button to no action.
     canvas.addEventListener('pointerdown', (e) => {
         if (e.button !== 0 && e.button !== 1 && e.button !== 2) return;
 
@@ -850,7 +854,7 @@ async function bootEditor(root) {
         renderer.setEditingPointer(true);
         // stroke writes trigger scene.onChange → single rebuild
         showPreview(result.preview);
-    });
+    }, { capture: true });
 
     canvas.addEventListener('pointermove', (e) => {
         if (cameraGesture) return;
