@@ -1788,7 +1788,7 @@ html.vv-drawer-open body {
     }
 
     .vv-float-top {
-        width: calc(100% - 2rem);
+        width: calc(100% - 1.5rem);
         left: 50%;
         top: max(0.5rem, env(safe-area-inset-top));
     }

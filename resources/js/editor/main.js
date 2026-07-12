@@ -1343,20 +1343,6 @@ async function bootEditor(root) {
         });
     });
 
-    document.getElementById('vv-download-recovery').addEventListener('click', () => {
-        const payload = {
-            public_url: document.getElementById('vv-public-link').value,
-            edit_url: document.getElementById('vv-edit-link').value,
-            public_id: state.publishedId,
-            warning: 'Keep this file private. Anyone with the edit link can modify or delete the model. Lost keys cannot be recovered.',
-        };
-        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `voxelverse-recovery-${state.publishedId}.json`;
-        a.click();
-        URL.revokeObjectURL(a.href);
-    });
 }
 
 function isTypingTarget(el) {

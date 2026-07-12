@@ -150,7 +150,7 @@
     </div>
 
     {{-- Inspector: desktop panel / mobile bottom drawer --}}
-    <div id="vv-inspector-drawer" class="vv-drawer vv-inspector-drawer is-open" role="dialog" aria-modal="false" aria-labelledby="vv-inspector-title">
+    <div id="vv-inspector-drawer" class="vv-drawer vv-inspector-drawer" role="dialog" aria-modal="false" aria-labelledby="vv-inspector-title">
         <div class="vv-drawer-scrim" data-drawer-scrim></div>
         <div class="vv-drawer-sheet vv-inspector-sheet" data-drawer-sheet tabindex="-1">
             <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>
@@ -446,8 +446,6 @@
                     </div>
                 </div>
                 <div class="vv-sheet-actions">
-                    <button type="button" id="vv-download-recovery" class="vv-btn vv-btn-ghost">Download recovery</button>
-                    <a id="vv-recovery-new" class="vv-btn vv-btn-ghost" href="{{ route('editor') }}?new=1">Start new</a>
                     <a id="vv-open-public" class="vv-btn vv-btn-fill" href="#" target="_blank" rel="noopener">Open</a>
                     <button type="button" id="vv-recovery-close" class="vv-btn vv-btn-ghost">Done</button>
                 </div>
