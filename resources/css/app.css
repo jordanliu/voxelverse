@@ -1071,7 +1071,8 @@ body {
 }
 
 .vv-chip.is-on,
-.vv-chip[aria-pressed='true'] {
+.vv-chip[aria-pressed='true'],
+.vv-chip-active {
     background: rgba(224, 122, 95, 0.14);
     border-color: rgba(224, 122, 95, 0.28);
     color: var(--vv-accent-deep);
