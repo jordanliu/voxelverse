@@ -28,7 +28,7 @@
     data-allow-remix="{{ $model->allow_remix ? '1' : '0' }}"
     data-thumbnail="{{ $model->thumbnailUrl() }}"
 >
-    <header class="vv-chrome mx-auto mt-3 flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-[1.15rem] px-4 py-3 md:px-6">
+    <header class="vv-chrome mx-auto mt-3 flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-[1.15rem] px-5 py-3 md:px-6">
         <div class="flex items-center gap-3">
             <a href="{{ route('gallery') }}" aria-label="Voxelverse home" class="block shrink-0">
                 <img src="{{ asset('logo.svg') }}" alt="Voxelverse" class="vv-logo" width="1140" height="380">

@@ -63,17 +63,18 @@
                     type="button"
                     id="vv-export"
                     class="vv-btn vv-btn-ghost vv-btn-icon"
-                    aria-label="Export"
+                    aria-label="Menu"
                     aria-haspopup="menu"
                     aria-expanded="false"
-                    title="Export"
+                    title="Menu"
                 >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/>
-                        <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2.05-1.6-2-3.45-2.45 1a7.6 7.6 0 0 0-1.75-1L15 3.5h-6l-.3 2.45a7.6 7.6 0 0 0-1.75 1l-2.45-1-2 3.45L4.55 11a7.8 7.8 0 0 0 0 2l-2.05 1.6 2 3.45 2.45-1a7.6 7.6 0 0 0 1.75 1L9 20.5h6l.3-2.45a7.6 7.6 0 0 0 1.75-1l2.45 1 2-3.45L19.4 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                        <circle cx="12" cy="5.5" r="1.5" fill="currentColor"/>
+                        <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                        <circle cx="12" cy="18.5" r="1.5" fill="currentColor"/>
                     </svg>
                 </button>
-                <div id="vv-export-menu" class="vv-menu" role="menu" hidden>
+                <div id="vv-export-menu" class="vv-menu vv-desktop-only" role="menu" hidden>
                     <a class="vv-menu-item" role="menuitem" href="{{ route('editor') }}?new=1">Start new</a>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="png">Export PNG</button>
                     <button type="button" class="vv-menu-item" role="menuitem" data-export="json">Export JSON</button>
@@ -450,6 +451,27 @@
                     <a id="vv-open-public" class="vv-btn vv-btn-fill" href="#" target="_blank" rel="noopener">Open</a>
                     <button type="button" id="vv-recovery-close" class="vv-btn vv-btn-ghost">Done</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Export menu drawer --}}
+    <div id="vv-export-drawer" class="vv-drawer vv-desktop-dialog" role="dialog" aria-modal="true" aria-labelledby="vv-export-title" hidden>
+        <div class="vv-drawer-scrim" data-drawer-scrim></div>
+        <div class="vv-drawer-sheet vv-drawer-sheet-export" data-drawer-sheet tabindex="-1">
+            <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>
+            <div class="vv-drawer-header">
+                <h2 id="vv-export-title" class="vv-display" style="font-size:1.05rem">Menu</h2>
+                <button type="button" class="vv-btn vv-btn-ghost vv-btn-icon" id="vv-close-export" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="vv-drawer-body">
+                <a class="vv-menu-item" role="menuitem" href="{{ route('editor') }}?new=1">Start new</a>
+                <button type="button" class="vv-menu-item" role="menuitem" data-export="png">Export PNG</button>
+                <button type="button" class="vv-menu-item" role="menuitem" data-export="json">Export JSON</button>
+                <button type="button" class="vv-menu-item" role="menuitem" data-export="obj">Export OBJ</button>
+                <button type="button" class="vv-menu-item" role="menuitem" data-import="json">Import JSON</button>
             </div>
         </div>
     </div>

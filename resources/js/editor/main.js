@@ -1103,9 +1103,23 @@ async function bootEditor(root) {
     document.getElementById('vv-publish-cancel').addEventListener('click', () => publishDrawer.close());
     document.getElementById('vv-recovery-close').addEventListener('click', () => recoveryDrawer.close());
 
-    // Export menu
+    // Export menu (desktop dropdown) / drawer (mobile vaul)
     const exportBtn = document.getElementById('vv-export');
     const exportMenu = document.getElementById('vv-export-menu');
+    const importJsonInput = document.getElementById('vv-import-json');
+    const exportDrawer = createDrawer(document.getElementById('vv-export-drawer'), {
+        modal: true,
+        dismissible: true,
+    });
+    document.getElementById('vv-close-export')?.addEventListener('click', () => {
+        if (!mqDesktop.matches) exportDrawer.close();
+    });
+
+    function closeExportUI() {
+        if (exportMenu) { exportMenu.hidden = true; exportMenu.setAttribute('hidden', ''); }
+        exportBtn?.setAttribute('aria-expanded', 'false');
+        exportDrawer.close();
+    }
 
     function setExportMenuOpen(open) {
         if (!exportMenu || !exportBtn) return;
@@ -1121,16 +1135,19 @@ async function bootEditor(root) {
 
     exportBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
-        setExportMenuOpen(exportMenu.hidden);
+        if (mqDesktop.matches) {
+            setExportMenuOpen(exportMenu.hidden);
+        } else {
+            exportDrawer.toggle();
+        }
     });
 
     document.addEventListener('click', (e) => {
+        if (!mqDesktop.matches) return;
         if (!exportMenu || exportMenu.hidden) return;
         if (exportMenu.contains(e.target) || exportBtn?.contains(e.target)) return;
         setExportMenuOpen(false);
     });
-
-    const importJsonInput = document.getElementById('vv-import-json');
 
     importJsonInput?.addEventListener('change', async (event) => {
         const file = event.target.files?.[0];
@@ -1170,11 +1187,11 @@ async function bootEditor(root) {
         }
     });
 
-    exportMenu?.querySelectorAll('[data-export]').forEach((item) => {
+    document.querySelectorAll('[data-export]').forEach((item) => {
         item.addEventListener('click', async () => {
             const kind = item.dataset.export;
             const title = document.getElementById('vv-title')?.value || scene.meta?.title || 'Untitled';
-            setExportMenuOpen(false);
+            closeExportUI();
             try {
                 if (kind === 'png') {
                     const showGrid = renderer.showGrid;
@@ -1197,8 +1214,8 @@ async function bootEditor(root) {
         });
     });
 
-    exportMenu?.querySelector('[data-import="json"]')?.addEventListener('click', () => {
-        setExportMenuOpen(false);
+    document.querySelector('[data-import="json"]')?.addEventListener('click', () => {
+        closeExportUI();
         importJsonInput?.click();
     });
 
