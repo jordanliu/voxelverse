@@ -633,6 +633,11 @@ body {
     box-shadow: 0 0 0 1px rgba(224, 122, 95, 0.18) inset;
 }
 
+.vv-tool:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--vv-accent) 70%, white);
+    outline-offset: 2px;
+}
+
 /* Instant hover tooltips (Apple-style floating labels) */
 .vv-tool[data-tip]::after {
     content: attr(data-tip);
