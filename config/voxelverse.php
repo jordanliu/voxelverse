@@ -34,6 +34,7 @@ return [
         'fabric' => ['label' => 'Fabric', 'roughness' => 0.98, 'metalness' => 0.0, 'emissive' => 0.0],
         'ice' => ['label' => 'Ice', 'roughness' => 0.12, 'metalness' => 0.0, 'emissive' => 0.0],
         'gold' => ['label' => 'Gold', 'roughness' => 0.24, 'metalness' => 0.78, 'emissive' => 0.0],
+        'clay' => ['label' => 'Clay', 'roughness' => 0.92, 'metalness' => 0.0, 'emissive' => 0.0],
     ],
 
     'lighting' => [
