@@ -378,9 +378,11 @@ export class StudioRenderer {
 
         this.groundMatWithGrid = new THREE.MeshBasicMaterial({
             map: this._gridTexture,
+            toneMapped: false,
         });
         this.groundMatPlain = new THREE.MeshBasicMaterial({
             color: new THREE.Color(this.groundColor),
+            toneMapped: false,
         });
 
         this.ground = new THREE.Mesh(groundGeo, this.groundMatWithGrid);
