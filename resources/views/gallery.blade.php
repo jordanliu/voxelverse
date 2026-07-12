@@ -14,7 +14,6 @@
             <a href="{{ route('gallery') }}" aria-label="Voxelverse home" class="block shrink-0">
                 <img src="{{ asset('logo.svg') }}" alt="Voxelverse" class="vv-logo" width="1140" height="380">
             </a>
-            <span class="hidden text-sm text-[var(--color-studio-muted)] sm:inline">Soft voxels. Studio light. No signup.</span>
         </div>
         <div class="flex items-center gap-2">
             <a href="{{ route('editor') }}" class="vv-btn vv-btn-fill">Start creating</a>
@@ -27,7 +26,7 @@
                 Make a tiny world. Publish it in one click.
             </h1>
             <p class="mt-3 text-base leading-relaxed text-[var(--color-studio-muted)] md:text-lg">
-                Build a tiny world in your browser, save your draft, and share it when it’s ready.
+                Build a tiny world in your browser, save your draft, and share it when it’s ready. No account required.
             </p>
             <div class="mt-5">
                 <a href="{{ route('editor') }}" class="vv-btn vv-btn-fill vv-btn-cta">Open the editor</a>

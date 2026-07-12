@@ -45,6 +45,10 @@
             @if($model->thumbnailUrl())
                 <img id="vv-thumb-fallback" src="{{ $model->thumbnailUrl() }}" alt="" class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover">
             @endif
+            <div id="vv-loading" class="vv-loading" role="status" aria-live="polite">
+                <span class="vv-spinner" aria-hidden="true"></span>
+                <span>Preparing viewer</span>
+            </div>
             <canvas
                 id="vv-viewer-canvas"
                 class="relative z-10 h-full w-full"

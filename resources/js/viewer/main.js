@@ -7,6 +7,13 @@ if (root) {
     bootViewer(root).catch(console.error);
 }
 
+function hideLoading() {
+    const loading = document.getElementById('vv-loading');
+    if (!loading) return;
+    loading.classList.add('is-hidden');
+    loading.addEventListener('transitionend', () => loading.setAttribute('hidden', ''), { once: true });
+}
+
 async function bootViewer(root) {
     const publicId = root.dataset.publicId;
     const apiBase = root.dataset.apiBase || '/api';
@@ -223,6 +230,7 @@ async function bootViewer(root) {
         });
     } catch (e) {
         console.error(e);
+        hideLoading();
         document.getElementById('vv-viewer-fallback')?.classList.remove('hidden');
         return;
     }
@@ -258,8 +266,10 @@ async function bootViewer(root) {
         renderer.controls.enabled = true;
         document.getElementById('vv-thumb-fallback')?.remove();
         document.getElementById('vv-viewer-hint')?.classList.remove('opacity-0');
+        hideLoading();
     } catch (e) {
         console.error(e);
+        hideLoading();
         document.getElementById('vv-viewer-fallback')?.classList.remove('hidden');
     }
 }
