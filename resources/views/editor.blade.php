@@ -42,6 +42,12 @@
                 spellcheck="false"
             >
             <div class="vv-bar-spacer"></div>
+            <button type="button" id="vv-open-inspector-top" class="vv-btn vv-btn-ghost vv-btn-icon vv-mobile-only vv-navbar-settings" aria-label="Open settings" aria-controls="vv-inspector-drawer" aria-expanded="false" title="Settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2.05-1.6-2-3.45-2.45 1a7.6 7.6 0 0 0-1.75-1L15 3.5h-6l-.3 2.45a7.6 7.6 0 0 0-1.75 1l-2.45-1-2 3.45L4.55 11a7.8 7.8 0 0 0 0 2l-2.05 1.6 2 3.45 2.45-1a7.6 7.6 0 0 0 1.75 1L9 20.5h6l.3-2.45a7.6 7.6 0 0 0 1.75-1l2.45 1 2-3.45L19.4 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+            </button>
             <button type="button" id="vv-undo" class="vv-btn vv-btn-ghost vv-btn-icon" aria-label="Undo" title="Undo (⌘Z)">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M9 14L4 9l5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -125,21 +131,15 @@
                 <path d="M12 10.5v5.5M12 8.25v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
         </button>
-        <button type="button" id="vv-open-inspector" class="vv-mobile-fab" aria-label="Open settings" aria-controls="vv-inspector-drawer" aria-expanded="false">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2.05-1.6-2-3.45-2.45 1a7.6 7.6 0 0 0-1.75-1L15 3.5h-6l-.3 2.45a7.6 7.6 0 0 0-1.75 1l-2.45-1-2 3.45L4.55 11a7.8 7.8 0 0 0 0 2l-2.05 1.6 2 3.45 2.45-1a7.6 7.6 0 0 0 1.75 1L9 20.5h6l.3-2.45a7.6 7.6 0 0 0 1.75-1l2.45 1 2-3.45L19.4 13Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            </svg>
-        </button>
     </div>
 
     {{-- Inspector: desktop panel / mobile bottom drawer --}}
-    <div id="vv-inspector-drawer" class="vv-drawer vv-inspector-drawer is-open" role="dialog" aria-modal="false" aria-label="Inspector">
+    <div id="vv-inspector-drawer" class="vv-drawer vv-inspector-drawer is-open" role="dialog" aria-modal="false" aria-labelledby="vv-inspector-title">
         <div class="vv-drawer-scrim" data-drawer-scrim></div>
         <div class="vv-drawer-sheet vv-inspector-sheet" data-drawer-sheet tabindex="-1">
             <div class="vv-drawer-handle" data-drawer-handle aria-hidden="true"></div>
             <div class="vv-drawer-header vv-mobile-only">
-                <h2 class="vv-display" style="font-size:1.05rem">Settings</h2>
+                <h2 id="vv-inspector-title" class="vv-display" style="font-size:1.05rem">Settings</h2>
                 <button type="button" class="vv-btn vv-btn-ghost vv-btn-icon" id="vv-close-inspector" aria-label="Close settings">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
                 </button>
@@ -223,7 +223,7 @@
                 <h2 class="vv-eyebrow" title="Controls the background, ground, and editing grid around your model.">Scene</h2>
                 <div class="vv-color-row vv-scene-row">
                     <label class="vv-body" for="vv-ground-color" title="The color of the whole scene. The editable grid uses this color as its surface.">Scene color</label>
-                    <input id="vv-ground-color" type="color" value="#E9E2D8" aria-label="Ground color" class="vv-color-native">
+                    <input id="vv-ground-color" type="color" value="#F5EFE6" aria-label="Scene color" class="vv-color-native">
                 </div>
                 <div class="vv-color-row vv-scene-row">
                     <label class="vv-body" for="vv-grid-color" title="The color of the lines on the editing grid. This only changes the grid's appearance.">Grid color</label>

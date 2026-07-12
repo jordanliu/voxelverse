@@ -275,6 +275,10 @@ body {
     touch-action: none;
 }
 
+.vv-stage canvas:focus {
+    outline: none;
+}
+
 .vv-fallback {
     position: absolute;
     inset: 0;
@@ -1720,6 +1724,11 @@ html.vv-drawer-open body {
         font-size: 0.9rem;
     }
 
+    .vv-navbar-settings {
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+
     .vv-btn {
         min-height: 2.5rem;
     }
@@ -1831,7 +1840,24 @@ html.vv-drawer-open body {
         background: transparent;
         backdrop-filter: none;
         max-height: none;
-        padding: 0;
+        min-width: 0;
+        width: 100%;
+        overflow-x: hidden;
+        padding: 0.45rem 1rem 1.35rem;
+    }
+
+    .vv-inspector-drawer .vv-drawer-body {
+        min-width: 0;
+        overflow-x: hidden;
+        scroll-padding-block: 0.75rem;
+    }
+
+    .vv-inspector-drawer .vv-drawer-header {
+        padding: 0.55rem 1rem 0.7rem;
+    }
+
+    .vv-inspector-drawer .vv-drawer-sheet {
+        max-height: min(88dvh, 42rem);
     }
 
     .vv-field,
@@ -1857,6 +1883,28 @@ html.vv-drawer-open body {
 
     .vv-inline .vv-field {
         flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    .vv-bar {
+        gap: 0.2rem;
+        padding-inline: 0.25rem;
+    }
+
+    #vv-undo,
+    #vv-redo {
+        display: none;
+    }
+
+    .vv-title-field {
+        width: min(7rem, 27vw);
+    }
+
+    .vv-btn-icon {
+        width: 2.35rem;
+        height: 2.35rem;
+        min-height: 2.35rem;
     }
 }
 

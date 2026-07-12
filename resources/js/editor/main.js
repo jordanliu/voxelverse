@@ -59,7 +59,9 @@ async function bootEditor(root) {
         modal: !mqDesktop.matches,
         dismissible: !mqDesktop.matches,
         onOpenChange(open) {
-            document.getElementById('vv-open-inspector')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.querySelectorAll('[aria-controls="vv-inspector-drawer"]').forEach((button) => {
+                button.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
         },
     });
 
@@ -95,8 +97,8 @@ async function bootEditor(root) {
         }
     });
 
-    document.getElementById('vv-open-inspector')?.addEventListener('click', () => {
-        inspectorDrawer.open();
+    document.querySelectorAll('[aria-controls="vv-inspector-drawer"]').forEach((button) => {
+        button.addEventListener('click', () => inspectorDrawer.toggle());
     });
     document.getElementById('vv-close-inspector')?.addEventListener('click', () => {
         if (!mqDesktop.matches) inspectorDrawer.close();

@@ -153,7 +153,7 @@ export class StudioRenderer {
         this.showGrid = true;
         this.showGround = true;
         this.bgColor = '#f5efe6';
-        this.groundColor = '#e9e2d8';
+        this.groundColor = '#f5efe6';
         this.gridLineColor = '#f7f3ec';
         this.linkGroundToBackground = false;
 
@@ -172,6 +172,9 @@ export class StudioRenderer {
         this.controls.zoomSpeed = 1.1;
         this.controls.rotateSpeed = 0.85;
         this.controls.panSpeed = 0.9;
+        this.controls.zoomToCursor = true;
+        this.controls.minPolarAngle = Math.PI * 0.08;
+        this.controls.maxPolarAngle = Math.PI * 0.92;
         this.controls.minZoom = 0.25;
         this.controls.maxZoom = 8;
         this.controls.minDistance = 2;
