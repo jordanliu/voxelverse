@@ -8,7 +8,7 @@ Voxelverse is local-first: drafts stay in the browser until you choose to publis
 
 - Laravel 13 + Blade + Vite + Tailwind 4
 - Vanilla ES modules + Three.js (editor / viewer)
-- SQLite locally, Neon Postgres and S3-compatible Object Storage in production
+- SQLite locally, Postgres and S3-compatible Object Storage in production
 - PHPUnit + Vitest
 
 ## Editor features
