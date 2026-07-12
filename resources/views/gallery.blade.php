@@ -9,6 +9,7 @@
 
 @section('body')
 <div class="min-h-full">
+<div class="w-full px-4 md:px-0">
     <header class="vv-chrome mx-auto mt-3 flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-[1.15rem] px-4 py-3 md:px-6">
         <div class="flex items-center gap-3">
             <a href="{{ route('gallery') }}" aria-label="Voxelverse home" class="block shrink-0">
@@ -19,6 +20,7 @@
             <a href="{{ route('editor') }}" class="vv-btn vv-btn-fill">Start creating</a>
         </div>
     </header>
+</div>
 
     <main class="mx-auto max-w-6xl px-4 py-8 md:px-6">
         <section class="mb-8 max-w-2xl pt-4 md:pt-6">

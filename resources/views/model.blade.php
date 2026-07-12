@@ -28,6 +28,7 @@
     data-allow-remix="{{ $model->allow_remix ? '1' : '0' }}"
     data-thumbnail="{{ $model->thumbnailUrl() }}"
 >
+<div class="w-full px-4 md:px-0">
     <header class="vv-chrome mx-auto mt-3 flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 rounded-[1.15rem] px-4 py-3 md:px-6">
         <div class="flex items-center gap-3">
             <a href="{{ route('gallery') }}" aria-label="Voxelverse home" class="block shrink-0">
@@ -39,6 +40,7 @@
             <a href="{{ route('editor') }}" class="vv-btn vv-btn-fill">Start creating</a>
         </div>
     </header>
+</div>
 
     <main class="mx-auto max-w-6xl space-y-6 px-4 py-6 md:px-6">
         <section class="vv-viewport-wrap relative" style="min-height: 30rem; height: min(78vh, 48rem);">

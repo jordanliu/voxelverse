@@ -184,6 +184,21 @@ async function bootEditor(root) {
         state.editKey = editKeyFromHash;
     }
 
+    function updatePublishLabels(editing) {
+        const btn = document.getElementById('vv-publish');
+        const title = document.getElementById('vv-publish-title');
+        const submit = document.getElementById('vv-publish-submit');
+        if (editing) {
+            if (btn) btn.textContent = 'Save';
+            if (title) title.textContent = 'Save';
+            if (submit) submit.textContent = 'Save';
+        } else {
+            if (btn) btn.textContent = 'Publish';
+            if (title) title.textContent = 'Publish';
+            if (submit) submit.textContent = 'Publish';
+        }
+    }
+
     if (publicId) {
         const ownership = await getOwnership(publicId);
         if (ownership?.editKey) {
@@ -198,6 +213,7 @@ async function bootEditor(root) {
                 state.publishedId = publicId;
                 document.getElementById('vv-title').value = data.title || 'Untitled';
                 scene.meta.title = data.title || 'Untitled';
+                updatePublishLabels(true);
             }
         } catch (e) {
             console.warn('Could not load published model', e);
@@ -1227,7 +1243,7 @@ async function bootEditor(root) {
         errEl.hidden = true;
         errEl.textContent = '';
         submit.disabled = true;
-        submit.textContent = 'Publishing…';
+        submit.textContent = state.publishedId && state.editKey ? 'Saving…' : 'Publishing…';
 
         try {
             persistStudioMeta();
@@ -1319,6 +1335,12 @@ async function bootEditor(root) {
             document.getElementById('vv-edit-link').value = editUrl;
             document.getElementById('vv-open-public').href = publicUrl;
             publishDrawer.close();
+            const recoveryTitle = document.getElementById('vv-recovery-title');
+            if (recoveryTitle) recoveryTitle.textContent = updating ? 'Saved' : 'Published';
+            const recoveryMsg = recoveryTitle?.nextElementSibling;
+            if (recoveryMsg) recoveryMsg.textContent = updating
+                ? 'Your changes are now live.'
+                : 'Ownership lives in this browser or the private edit link. Clearing site data removes local access. Anyone with the private link can edit.';
             recoveryDrawer.open();
 
             // Update URL without reload when first publish
@@ -1330,7 +1352,7 @@ async function bootEditor(root) {
             errEl.hidden = false;
         } finally {
             submit.disabled = false;
-            submit.textContent = 'Publish';
+            submit.textContent = state.publishedId && state.editKey ? 'Save' : 'Publish';
         }
     });
 
