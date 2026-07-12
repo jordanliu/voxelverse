@@ -8,7 +8,7 @@ Voxelverse is local-first: drafts stay in the browser until you choose to publis
 
 - Laravel 13 + Blade + Vite + Tailwind 4
 - Vanilla ES modules + Three.js (editor / viewer)
-- SQLite locally, Laravel Serverless Postgres and Object Storage in production
+- SQLite locally, Neon Postgres and S3-compatible Object Storage in production
 - PHPUnit + Vitest
 
 ## Editor features
@@ -52,28 +52,72 @@ composer dev
 # or: php artisan serve + npm run dev
 ```
 
-## Laravel Cloud production
+## Production database and storage
 
 SQLite is suitable for local development but should not be used for production
-on Laravel Cloud because the application filesystem is ephemeral. Use a
-Laravel Serverless Postgres database for the database and Laravel Object
-Storage for thumbnails and scene JSON.
+because the application filesystem is ephemeral. Use Postgres for the database
+and S3-compatible object storage for thumbnails and scene JSON. Neon works as
+the Postgres provider; Laravel Cloud can also provide a managed Postgres
+database if preferred.
 
-In Laravel Cloud:
+### Neon Postgres
 
-1. Open the environment infrastructure canvas and choose **Add database**.
-2. Create or select a **Laravel Serverless Postgres** cluster and database.
-3. Attach it to the production environment. Cloud injects DB_HOST,
-   DB_DATABASE, DB_USERNAME, and DB_PASSWORD.
-4. Set DB_CONNECTION=pgsql and DB_SSLMODE=require in the environment if
-   Cloud has not already supplied them.
-5. Set the deploy command to `php artisan migrate --force`.
-6. Redeploy the environment.
+Add these variables to the deployed environment. Do not commit a real Neon
+password to `.env`, the repository, or the README:
+
+```dotenv
+DB_CONNECTION=pgsql
+DB_URL=postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require&channel_binding=require
+DB_SSLMODE=require
+```
+
+The connection string can be entered as a single `DB_URL` value. Alternatively,
+use separate `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and
+`DB_PASSWORD` values. Keep `DB_CONNECTION=pgsql` in both cases. The pgsql
+configuration enables emulated prepares for Neon pooled connections, which
+avoids transaction issues with Laravel's database cache and rate limiter.
+
+For Laravel Cloud, add the variables in the environment's Variables section.
+If you attach a Laravel-managed Postgres database instead, Cloud can inject the
+individual `DB_*` values; still set `DB_CONNECTION=pgsql` and
+`DB_SSLMODE=require` when needed.
+
+Set the deploy command to:
+
+```bash
+php artisan migrate --force
+```
+
+Run it after the database variables are available. This creates the schema in
+a fresh Neon database and safely applies any later migrations.
+
+### Object storage
+
+For published thumbnails and scene JSON, attach a Laravel Cloud Object Storage
+bucket or use another S3-compatible provider. Configure the deployed
+environment with the provider's values:
+
+```dotenv
+FILESYSTEM_DISK=s3
+PUBLIC_FILESYSTEM_DISK=s3
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=your-bucket
+AWS_ENDPOINT=https://your-s3-endpoint
+AWS_URL=https://your-public-bucket-url
+AWS_USE_PATH_STYLE_ENDPOINT=false
+```
+
+The `league/flysystem-aws-s3-v3` package is included in `composer.json`, which
+is required when a Laravel Cloud bucket is attached. The bucket must allow the
+published thumbnail URLs to be read publicly, or `AWS_URL` should point to a
+public CDN/bucket URL.
 
 The migrations use Laravel's schema builder and are compatible with PostgreSQL.
-Run the migration on staging first if the production database already contains
-data. Existing SQLite data must be exported and imported separately; migrations
-only create the schema.
+Run them on staging first if the production database already contains data.
+Existing SQLite data must be exported and imported separately; migrations only
+create the schema.
 
 ## Scripts
 
@@ -106,7 +150,11 @@ only create the schema.
 ## Product notes
 
 - No signup required
-- Drafts autosave in IndexedDB
+- Drafts autosave in IndexedDB with a localStorage fallback
+- `/editor` resumes the active unpublished draft; use `/editor?new=1` or the
+  editor's **Start new** action to begin a fresh model
+- Publishing clears only the active-draft pointer; existing drafts and private
+  edit links remain recoverable
 - Publish uses a centered desktop modal and a mobile bottom drawer
 - Publish returns a public URL and a private edit key, shown once with a recovery download
 - Unlisted models are URL-accessible but excluded from the gallery

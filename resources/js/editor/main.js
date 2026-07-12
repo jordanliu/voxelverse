@@ -1104,6 +1104,11 @@ async function bootEditor(root) {
 
             const title = imported.meta?.title || file.name.replace(/\.voxel\.json$|\.json$/i, '') || 'Untitled';
             document.getElementById('vv-title').value = title;
+            document.getElementById('vv-pub-desc').value = '';
+            document.getElementById('vv-pub-name').value = '';
+            document.getElementById('vv-pub-tags').value = '';
+            document.querySelector('#vv-publish-form input[name="visibility"][value="public"]')?.click();
+            document.querySelector('#vv-publish-form input[name="allow_remix"]').checked = true;
             imported.meta = { ...(imported.meta || {}), title };
             renderer.setEnvironment(imported.environment);
             if (imported.meta?.studio) renderer.applyStudioAppearance(imported.meta.studio);
