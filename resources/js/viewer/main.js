@@ -192,6 +192,7 @@ async function bootViewer(root) {
     try {
         renderer = new StudioRenderer(canvas, { mode: 'viewer' });
         renderer.setGridVisible(false);
+        renderer.setGroundColor(renderer.bgColor);
         // Full interaction (constructor already enables left-drag rotate for viewer mode)
         renderer.controls.enabled = true;
         renderer.controls.enableRotate = true;
