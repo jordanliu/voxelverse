@@ -51,32 +51,6 @@ composer dev
 # or: php artisan serve + npm run dev
 ```
 
-## Deployment
-
-Use Postgres for the database and S3-compatible object storage for thumbnails
-and scene JSON. Set the following environment variables:
-
-```dotenv
-DB_CONNECTION=pgsql
-DB_URL=postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require
-
-FILESYSTEM_DISK=s3
-PUBLIC_FILESYSTEM_DISK=s3
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
-AWS_BUCKET=your-bucket
-AWS_ENDPOINT=https://your-s3-endpoint
-AWS_URL=https://your-public-bucket-url
-```
-
-Run migrations after the database is configured:
-
-```bash
-php artisan migrate --force
-```
-
-Existing SQLite data must be exported and imported separately.
-
 ## Scripts
 
 | Command | Purpose |
@@ -92,4 +66,24 @@ Existing SQLite data must be exported and imported separately.
 - [Scene format](docs/scene-format.md)
 - [Anonymous ownership](docs/ownership.md)
 
+## Deployment
 
+[Laravel Cloud](https://laravel.com/cloud) is the recommended deployment
+strategy for Voxelverse. It provides managed Laravel application hosting and a
+straightforward path to connect the production services the app needs.
+
+Use Laravel Cloud’s managed bucket for thumbnails and scene JSON, and configure
+Postgres with the following environment variables:
+
+```dotenv
+APP_KEY=base64:your-production-app-key
+DB_CONNECTION=pgsql
+DB_SSLMODE=require
+DB_URL=postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require&channel_binding=require
+```
+
+Run migrations after the database is configured:
+
+```bash
+php artisan migrate --force
+```
