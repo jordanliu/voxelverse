@@ -570,7 +570,10 @@ async function bootEditor(root) {
     });
 
     document.querySelectorAll('[data-tool]').forEach((btn) => {
-        btn.addEventListener('click', () => setTool(btn.dataset.tool));
+        btn.addEventListener('click', () => {
+            setTool(btn.dataset.tool);
+            btn.blur();
+        });
     });
 
     document.getElementById('vv-brush-size').addEventListener('input', (e) => {
